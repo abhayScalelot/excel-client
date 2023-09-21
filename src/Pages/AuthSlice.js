@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { register } from "../Redux/Services/AuthServices";
+import { register, signIn } from "../Redux/Services/AuthServices";
+
 
 // Slice
-
 export const registration = createAsyncThunk(
   "auth/register",
   async (payload) => {
     return await register(payload);
   }
 );
+
+export const signInUser = createAsyncThunk("auth/signin", async (payload) => {
+  return await signIn(payload);
+});
 
 const initialState = {
   data: [],
@@ -33,6 +37,10 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(registration.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.key = action?.payload?.data?.Data?.key;
+    });
+    builder.addCase(signInUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.key = action?.payload?.data?.Data?.key;
     });

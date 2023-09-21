@@ -130,7 +130,9 @@ const Register = () => {
                   </div>
                   <div className="my-4">
                     <NavLink to="/signin">
-                      <p>Already have an account ? </p>
+                      <p className="text-blue-600">
+                        Already have an account ? Sign in here !
+                      </p>
                     </NavLink>
                   </div>
                   <div className="my-2 w-1/2 lg:w-1/4">

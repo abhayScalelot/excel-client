@@ -1,9 +1,14 @@
 import Cookies from "js-cookie";
-const cookieValue = Cookies.get("myCookie");
 
-const authHeaders = () => {
+const gettingCookieValues = () => {
+ 
+  const token = Cookies.get("token");
+  console.log('token', token)
+};
+gettingCookieValues();
+
+export default authHeaders = () => {
   return {
-    Authorization: `Token ${user?.token}`,
-    "Content-Type": "multipart/form-data",
+    "Content-Type": "application/json",
   };
 };

@@ -2,8 +2,15 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import React from "react";
 import LoginLogo from "../assets/Login.svg";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signInUser } from "./AuthSlice";
+import Cookies from "js-cookie";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  console.log("token", token);
   const initialValues = {
     email: "",
     password: "",
@@ -13,8 +20,10 @@ const Login = () => {
     email: Yup.string().email().required("Email Required!"),
     password: Yup.string().required("Password Required!"),
   });
-  const onSubmit = (values) => {
-    console.log("values", values);
+  const onSubmit = async (values) => {
+    const payload = Object.assign(values);
+    const response = await dispatch(signInUser(payload));
+    console.log("response", response);
   };
   return (
     <>
@@ -49,7 +58,7 @@ const Login = () => {
                       <Field
                         className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Last Name*"
+                        placeholder="Password*"
                         name="password"
                       />
                       <div className="text-red-500 text-sm">
@@ -58,10 +67,11 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="my-4">
-                    {/* <textarea
-              placeholder="Message*"
-              className="w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-            ></textarea> */}
+                    <Link to="/register">
+                      <p className="text-blue-600">
+                        Don’t have an account? Sign up here!
+                      </p>
+                    </Link>
                   </div>
                   <div className="my-2 w-1/2 lg:w-1/4">
                     <button
