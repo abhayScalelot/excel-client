@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
+import AuthSlice from "../Pages/AuthSlice";
 const reducer = combineReducers({
-  // here we will be adding reducers
+  auth: AuthSlice,
 });
 const store = configureStore({
-  reducer,
+  reducer: reducer,
 });
 export default store;
