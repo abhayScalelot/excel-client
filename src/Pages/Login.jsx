@@ -1,16 +1,21 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import React from "react";
+import React, { useEffect } from "react";
 import LoginLogo from "../assets/Login.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signInUser } from "./AuthSlice";
-import Cookies from "js-cookie";
+import { signInUser, useUser } from "./AuthSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const token = Cookies.get("token");
-  console.log("token", token);
+  const navigate = useNavigate();
+  const { user } = useUser();
+  const token = user.token || null;
+
+  useEffect(() => {
+    if (token != null) return navigate("../../uploadfile");
+  }, [token]);
+
   const initialValues = {
     email: "",
     password: "",
@@ -25,6 +30,7 @@ const Login = () => {
     const response = await dispatch(signInUser(payload));
     console.log("response", response);
   };
+
   return (
     <>
       <div>

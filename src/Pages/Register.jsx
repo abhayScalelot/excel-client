@@ -7,6 +7,7 @@ import { registration } from "./AuthSlice";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const Register = () => {
   const onSubmit = async (values) => {
     const payload = Object.assign(values);
     const response = await dispatch(registration(payload));
+
     console.log("response", response);
     if (response?.payload?.success) {
       navigate("../signin");
@@ -43,6 +45,7 @@ const Register = () => {
       toast.error("let me guess");
     }
   };
+
   return (
     <>
       <div>
