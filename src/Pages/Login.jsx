@@ -10,10 +10,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useUser();
-  const token = user.token || null;
+  const token = user?.token;
+  console.log("user", user);
 
   useEffect(() => {
-    if (token != null) return navigate("../../uploadfile");
+    if (token) {
+      navigate("../uploadfile");
+    }
   }, [token]);
 
   const initialValues = {

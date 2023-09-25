@@ -49,6 +49,8 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.user = action?.payload?.data;
+      console.log('action.payload', action?.payload?.data)
+
       // localStorage.setItem("user", state.user);
     });
   },
@@ -62,6 +64,7 @@ export const selectUser = (state) => state.auth.user;
 
 export const useUser = () => {
   const user = useSelector(selectUser);
+  console.log('user', user)
   localStorage.setItem("user", user ? JSON.stringify(user) : undefined);
   return useMemo(() => ({ user }), [user]);
 };
